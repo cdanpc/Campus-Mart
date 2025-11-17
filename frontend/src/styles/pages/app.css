@@ -1,0 +1,7 @@
+@layer pages {
+  .layout-app { }
+
+  .layout-app .app-main {
+    /* reserved for page-level overrides in app area */
+  }
+}

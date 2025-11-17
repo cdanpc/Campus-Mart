@@ -1,0 +1,42 @@
+@layer pages {
+  .page-landing { }
+
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .item-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .item-card__banner {
+    height: 140px;
+    background: var(--card-bg-accent);
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  .item-card__body {
+    padding: 12px;
+  }
+
+  .item-card__price {
+    font-weight: 700;
+  }
+
+  .item-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-top: 1px solid var(--border-color);
+  }
+}

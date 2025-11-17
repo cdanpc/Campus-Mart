@@ -1,0 +1,145 @@
+@layer tokens, base, utilities, pages;
+
+/*
+	CampusMart Global Design Tokens (Colors)
+	- Light theme defaults on :root
+	- Dark theme overrides under [data-theme="dark"]
+	- Usage: var(--color-primary-600) or semantic tokens like var(--text-primary)
+*/
+
+/* Brand palette (inspired by reference screenshot) */
+@layer tokens {
+:root {
+	/* Primary (Purple) */
+	--color-primary-50:  #f5f1ff;
+	--color-primary-100: #ece6ff;
+	--color-primary-200: #d7caff;
+	--color-primary-300: #b79cff;
+	--color-primary-400: #9467ff;
+	--color-primary-500: #7a3cff;
+	--color-primary-600: #6c2bd9; /* sidebar/button color */
+	--color-primary-700: #5a22b5;
+	--color-primary-800: #451a8a;
+	--color-primary-900: #36156c;
+
+	/* Accent (Amber/Yellow cards) */
+	--color-accent-50:  #fff8e6;
+	--color-accent-100: #ffefbf;
+	--color-accent-200: #ffe38f;
+	--color-accent-300: #ffd65e;
+	--color-accent-400: #ffc935;
+	--color-accent-500: #f8c33b; /* card bg ref */
+	--color-accent-600: #e0ae2e;
+	--color-accent-700: #bb8c23;
+	--color-accent-800: #946d1e;
+	--color-accent-900: #775718;
+
+	/* Supporting (Blue for links/info, from UI chips/buttons) */
+	--color-info-50:  #eef7ff;
+	--color-info-100: #d9ecff;
+	--color-info-200: #bcdcff;
+	--color-info-300: #90c6ff;
+	--color-info-400: #5faaff;
+	--color-info-500: #3b8fff;
+	--color-info-600: #2876e6;
+	--color-info-700: #1d5ec0;
+	--color-info-800: #184e9b;
+	--color-info-900: #153f7d;
+
+	/* Feedback */
+	--color-success-500: #22c55e;
+	--color-warning-500: #f59e0b;
+	--color-danger-500:  #ef4444;
+
+	/* Neutral scale */
+	--gray-25:  #fcfcfd;
+	--gray-50:  #f8fafc; /* app background */
+	--gray-100: #f1f5f9;
+	--gray-200: #e5e7eb;
+	--gray-300: #d1d5db;
+	--gray-400: #9ca3af;
+	--gray-500: #6b7280;
+	--gray-600: #4b5563;
+	--gray-700: #374151;
+	--gray-800: #1f2937;
+	--gray-900: #111827;
+
+	/* Semantic tokens */
+	--bg-page: var(--gray-50);
+	--bg-surface: #ffffff;
+	--bg-subtle: var(--gray-25);
+	--text-primary: var(--gray-900);
+	--text-secondary: var(--gray-600);
+	--text-inverse: #ffffff;
+	--border-color: var(--gray-200);
+	--focus-ring: var(--color-info-500);
+
+	/* Component tokens */
+	--sidebar-bg: var(--color-primary-600);
+	--sidebar-text: var(--text-inverse);
+	--card-bg-accent: var(--color-accent-500);
+	--button-primary-bg: var(--color-primary-600);
+	--button-primary-text: var(--text-inverse);
+	--link: var(--color-info-600);
+	--link-hover: var(--color-info-700);
+	--shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+	--radius-sm: 8px;
+	--radius-md: 12px;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+	--bg-page: #0b1020;
+	--bg-surface: #0f172a;
+	--bg-subtle: #0b1220;
+	--text-primary: #e5e7eb;
+	--text-secondary: #94a3b8;
+	--text-inverse: #0b1020;
+	--border-color: #1f2a44;
+	--sidebar-bg: #3f1fa8;
+	--sidebar-text: #ffffff;
+	--card-bg-accent: #a67e1d;
+	--button-primary-bg: #6c2bd9;
+	--button-primary-text: #ffffff;
+	--link: #66a6ff;
+	--link-hover: #8bbdff;
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+}
+
+/* Optional base resets that use tokens */
+@layer base {
+html, body, #root {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+	background: var(--bg-page);
+	color: var(--text-primary);
+}
+
+a {
+	color: var(--link);
+	text-decoration: none;
+}
+a:hover { color: var(--link-hover); }
+}
+
+@layer utilities {
+.surface {
+	background: var(--bg-surface);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+	background: var(--button-primary-bg);
+	color: var(--button-primary-text);
+	border: none;
+	border-radius: var(--radius-sm);
+	padding: 8px 12px;
+}
+}
+
