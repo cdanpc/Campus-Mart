@@ -18,7 +18,7 @@ export default function LoginPage() {
 		setLoading(true)
 		try {
 			await login(email, password)
-			nav('/app/cart', { replace: true })
+			nav('/app', { replace: true })
 		} catch (err) {
 			setError(err.message || 'Login failed')
 		} finally {

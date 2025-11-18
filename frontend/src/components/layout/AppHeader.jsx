@@ -17,20 +17,48 @@ export default function AppHeader() {
 				display: 'flex',
 				alignItems: 'center',
 				gap: 12,
+				position: 'relative',
+				zIndex: 0,
 			}}
 		>
-			<input
-				placeholder="Search for textbooks, electronics…"
-				style={{
-					flex: 1,
-					border: '1px solid var(--border-color)',
-					borderRadius: 12,
-					padding: '10px 12px',
-					background: 'var(--bg-subtle)',
-					color: 'var(--text-primary)',
-				}}
-			/>
-			<Button as={Link} to="/app/post" leftIcon={<IconPlus />}>Post an Item</Button>
+			{/* Compact search input with icon */}
+			<div style={{ position: 'relative', width: '65%', maxWidth: 480, minWidth: 260 }}>
+				<span
+					style={{
+						position: 'absolute',
+						left: 14,
+						top: '50%',
+						transform: 'translateY(-50%)',
+						fontSize: 14,
+						opacity: 0.6,
+						pointerEvents: 'none'
+					}}
+					aria-hidden="true"
+				>
+					🔍
+				</span>
+				<input
+					placeholder="Search items…"
+					style={{
+						width: '100%',
+						border: '1px solid var(--border-color)',
+						borderRadius: 12,
+						padding: '10px 12px 10px 36px',
+						background: 'var(--bg-subtle)',
+						color: 'var(--text-primary)',
+						fontSize: 14,
+						boxSizing: 'border-box'
+					}}
+				/>
+			</div>
+			<Button
+				as={Link}
+				to="/app/post"
+				leftIcon={<IconPlus />}
+				style={{ color: '#fff' }} // ensure white text
+			>
+				Post an Item
+			</Button>
 			<Link to="/app/cart" style={{ position: 'relative', padding: '6px 8px', display: 'inline-flex' }} title="Cart">
 				<IconCart />
 				{totalItems > 0 && (
@@ -54,11 +82,19 @@ export default function AppHeader() {
 			<Link to="/notifications" title="Notifications" style={{ padding: '6px 8px', display: 'inline-flex' }}>
 				<IconBell />
 			</Link>
-			<div title={user?.email} style={{
-				width: 32, height: 32, borderRadius: 999,
-				background: 'var(--color-primary-600)', color: 'white',
-				display: 'grid', placeItems: 'center', fontWeight: 700
-			}}>
+			<div
+				title={user?.name || ''}
+				style={{
+					width: 32,
+					height: 32,
+					borderRadius: 999,
+					background: 'var(--color-primary-600)',
+					color: 'white',
+					display: 'grid',
+					placeItems: 'center',
+					fontWeight: 700
+				}}
+			>
 				{user?.name?.[0]?.toUpperCase() || 'U'}
 			</div>
 		</header>

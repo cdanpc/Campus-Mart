@@ -9,6 +9,8 @@
     margin-top: 0; /* was 60px */
     justify-content: flex-start; /* ensure no vertical centering */
     background: var(--bg-page);
+    position: relative;
+    z-index: 2; /* ensure auth content can overlay header */
   }
 
   .auth-card {

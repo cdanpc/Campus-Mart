@@ -2,18 +2,37 @@
   .header,
   .lp-nav {
     padding: 22px 40px;
+    position: relative; /* was sticky on landing, unify */
+    z-index: 0;         /* lowered so page content can pass over */
   }
   .lp-nav__right { gap: 32px; }
   .header-menu,
   .lp-menu {
     display: flex;
     align-items: center;
-    gap: 28px;                   /* consistent link spacing */
+    gap: 36px !important; /* was 28px */
   }
   .header-brand,
   .lp-brand {
-    font-weight: 900;
+    font-weight: 800; /* unified brand weight */
     text-decoration: none;
     color: var(--text-primary);
+  }
+  .header-menu a,
+  .lp-menu a,
+  .lp-login {
+    font-weight: 700; /* nav & action link weight */
+    padding-inline: 6px;
+  }
+  /* Mobile: reduce spacing to avoid wrapping too early */
+  @media (max-width: 640px) {
+    .header-menu,
+    .lp-menu {
+      gap: 18px !important;
+    }
+    .header-menu a,
+    .lp-menu a {
+      padding-inline: 4px;
+    }
   }
 }

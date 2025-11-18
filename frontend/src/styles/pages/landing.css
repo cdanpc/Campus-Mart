@@ -4,6 +4,8 @@
     /* was: background: var(--bg-base); */
     background: var(--bg-page);
     color: var(--text-primary);
+    position: relative;
+    z-index: 2; /* content above header */
   }
 
   /* Centered container + section rhythm */
@@ -15,7 +17,8 @@
 
   /* Navbar (sticky, minimal) */
   .lp-nav {
-    position: sticky; top: 0; z-index: 40;
+    position: relative;
+    z-index: 0;
     background: var(--bg-surface);
     box-shadow: var(--shadow-sm);
   }
@@ -46,12 +49,12 @@
   }
   .lp-login:hover { background: var(--bg-subtle); transform: translateY(-1px); }
   .lp-brand {
-    /* ...existing code... */
-    font-weight: 900; /* bolder brand */
+    /* font-weight: 900; */ /* replaced */
+    font-weight: 800;
   }
   .lp-menu {
     /* ...existing code... */
-    gap: 24px; /* ensure visible space between links */
+    /* gap: 24px;  ensure visible space between links  (removed to keep global spacing consistent) */
   }
   .lp-menu a {
     /* ...existing code... */
