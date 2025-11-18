@@ -8,6 +8,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx'
 import CartPage from '../pages/app/CartPage.jsx'
 import AppLayout from '../components/layout/AppLayout.jsx'
 import PublicLayout from '../components/layout/PublicLayout.jsx'
+import RegisterPage from '../pages/auth/RegisterPage.jsx'
 
 export default function AppRoutes() {
 	return (
@@ -15,10 +16,15 @@ export default function AppRoutes() {
 			<CartProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route element={<PublicLayout />}>
-							<Route index element={<LandingPage />} />
-							<Route path="login" element={<LoginPage />} />
-						</Route>
+						{/* Landing page WITHOUT the PublicLayout */}
+<Route index element={<LandingPage />} />
+
+{/* Other public pages WITH the PublicLayout */}
+<Route element={<PublicLayout />}>
+	<Route path="login" element={<LoginPage />} />
+	<Route path="register" element={<RegisterPage />} />
+</Route>
+
 
 						<Route element={<ProtectedRoute />}>
 							<Route path="/app" element={<AppLayout />}>

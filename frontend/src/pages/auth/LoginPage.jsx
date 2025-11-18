@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx'
 import Button from '../../components/common/Button.jsx'
+import '../../styles/pages/auth.css'
 
 export default function LoginPage() {
 	const { login } = useAuth()
@@ -26,24 +27,45 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div style={{ maxWidth: 360, margin: '40px auto' }}>
-			<h2>Login</h2>
-			<form onSubmit={onSubmit}>
-				<div style={{ marginBottom: 12 }}>
-					<label>Email</label>
-					<input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required style={{ width: '100%' }} />
-				</div>
-				<div style={{ marginBottom: 12 }}>
-					<label>Password</label>
-					<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required style={{ width: '100%' }} />
-				</div>
-				{error && <div style={{ color: 'var(--color-danger-500)', marginBottom: 8 }}>{error}</div>}
-				<Button type="submit" loading={loading} fullWidth>
-					Login
-				</Button>
-			</form>
-			<div style={{ marginTop: 8 }}>
-				<Link to="/">Back to marketplace</Link>
+		<div className="auth-page">
+			<div className="auth-card auth-card--compact">
+				<h1 className="auth-header__title">Login</h1>
+				<p className="auth-header__sub">Access your CampusMart account.</p>
+				<form onSubmit={onSubmit} className="auth-form">
+					<div className="auth-group">
+						<label className="auth-label">Email</label>
+						<input
+							className="auth-input"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							type="email"
+							required
+							autoComplete="email"
+						/>
+					</div>
+					<div className="auth-group">
+						<label className="auth-label">Password</label>
+						<input
+							className="auth-input"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							type="password"
+							required
+							autoComplete="current-password"
+						/>
+					</div>
+					{error && <div className="auth-error">{error}</div>}
+					<div className="auth-actions">
+						<Button type="submit" loading={loading} fullWidth>Login</Button>
+						<div className="auth-links">
+							<Link to="/register">Create account</Link>
+							<Link to="#">Forgot password?</Link>
+						</div>
+						<div className="auth-alt">
+							Need to browse? <Link to="/">Go to landing</Link>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	)

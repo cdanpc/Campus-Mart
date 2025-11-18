@@ -73,6 +73,7 @@
 	--text-inverse: #ffffff;
 	--border-color: var(--gray-200);
 	--focus-ring: var(--color-info-500);
+	--shadow-md: 0 4px 12px rgba(16,24,40,0.08);
 
 	/* Component tokens */
 	--sidebar-bg: var(--color-primary-600);
@@ -141,5 +142,13 @@ a:hover { color: var(--link-hover); }
 	border-radius: var(--radius-sm);
 	padding: 8px 12px;
 }
+}
+
+@layer pages {
+	/* Header spacing adjustments (auth + landing) */
+	.lp-nav { padding: 18px 32px !important; }
+	.lp-nav__inner { height: auto !important; }
+	.lp-menu { gap: 28px !important; }
+	.lp-nav__right { gap: 32px !important; }
 }
 
