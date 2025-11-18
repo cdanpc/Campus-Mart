@@ -1,0 +1,19 @@
+@layer pages {
+  .header,
+  .lp-nav {
+    padding: 22px 40px;
+  }
+  .lp-nav__right { gap: 32px; }
+  .header-menu,
+  .lp-menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;                   /* consistent link spacing */
+  }
+  .header-brand,
+  .lp-brand {
+    font-weight: 900;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+}
