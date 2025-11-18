@@ -14,7 +14,8 @@ import {
   MdChevronRight,
   MdOutlineShoppingCart,
   MdOutlineChat,
-  MdOutlineNotifications
+  MdOutlineNotifications,
+  MdOutlineChatBubbleOutline
 } from "react-icons/md";
 
 
@@ -422,7 +423,8 @@ export default function DashboardPage() {
 							transition: 'opacity .2s, color .2s'
 						}}
 					>
-						<MdOutlineChat size={20} />
+						<MdOutlineChatBubbleOutline size={20} />
+
 
 					</Link>,
 					msgAnchor
