@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext.jsx'
-import { MdSell, MdSwapHoriz, MdSort, MdFilterList, MdLocalOffer, MdPerson, MdFavoriteBorder, MdFavorite, MdChevronRight } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import { createPortal } from 'react-dom'
+import {
+  MdSell,
+  MdSwapHoriz,
+  MdSort,
+  MdFilterList,
+  MdLocalOffer,
+  MdPerson,
+  MdFavoriteBorder,
+  MdFavorite,
+  MdChevronRight,
+  MdOutlineShoppingCart,
+  MdOutlineChat,
+  MdOutlineNotifications
+} from "react-icons/md";
+
+
 
 const items = [
 	{
@@ -54,6 +71,7 @@ export default function DashboardPage() {
 	const { user } = useAuth()
 	const displayName = user?.name ? user.name.charAt(0).toUpperCase() + user.name.slice(1) : ''
 	const [activeTab, setActiveTab] = useState('sellable')
+	const [msgAnchor, setMsgAnchor] = useState(null)
 
 	// Dashboard-only header layout enhancement
 	useEffect(() => {
@@ -62,7 +80,7 @@ export default function DashboardPage() {
 
 		// Find search wrapper (first div containing the search input)
 		const searchWrapper = Array.from(header.children).find(
-		(el) => el.querySelector && el.querySelector('input[placeholder="Search items…"]')
+			(el) => el.querySelector && el.querySelector('input[placeholder="Search items…"]')
 		)
 		if (!searchWrapper) return
 
@@ -71,7 +89,7 @@ export default function DashboardPage() {
 		header.style.justifyContent = 'space-between'
 		header.style.alignItems = 'center'
 
-		// Constrain search width
+		// Constrain search width, group right-side items
 		searchWrapper.style.flex = '0 0 auto'
 		searchWrapper.style.maxWidth = '450px'
 		searchWrapper.style.width = '100%'
@@ -86,11 +104,26 @@ export default function DashboardPage() {
 		rightContainer.append(...rightItems)
 		header.appendChild(rightContainer)
 
-		// Cleanup: restore original structure when leaving page
+		// Insert messages anchor between Cart and Notifications
+		const anchor = document.createElement('span')
+		anchor.style.display = 'inline-flex'
+		anchor.style.alignItems = 'center'
+		anchor.style.padding = '6px 8px'
+		try {
+			const insertBeforeNode = rightContainer.children[2] // after Post + Cart
+			rightContainer.insertBefore(anchor, insertBeforeNode || null)
+		} catch {
+			rightContainer.appendChild(anchor)
+		}
+		setMsgAnchor(anchor)
+
+		// Cleanup
 		return () => {
 			if (!header.classList.contains('dash-enhanced')) return
-			const restoredItems = Array.from(rightContainer.children)
-			restoredItems.forEach((node) => header.appendChild(node))
+			if (anchor && anchor.parentNode) anchor.parentNode.removeChild(anchor)
+			setMsgAnchor(null)
+			const restored = Array.from(rightContainer.children)
+			restored.forEach((node) => header.appendChild(node))
 			rightContainer.remove()
 			searchWrapper.style.maxWidth = ''
 			searchWrapper.style.flex = ''
@@ -100,6 +133,51 @@ export default function DashboardPage() {
 			header.classList.remove('dash-enhanced')
 		}
 	}, [])
+
+	// Dashboard-only: unify cart/message/bell icons to outline 20px, #5A4AE3, no fill, same spacing
+	useEffect(() => {
+		const header = document.querySelector('header')
+		const rightContainer = header?.querySelector('.dash-header-right')
+		if (!rightContainer) return
+
+		const links = [
+			rightContainer.querySelector('a[title="Cart"]'),
+			rightContainer.querySelector('a[title="Messages"]'),
+			rightContainer.querySelector('a[title="Notifications"]'),
+		].filter(Boolean)
+
+		links.forEach((link) => {
+			// link styles (color + padding)
+			link.style.color = '#5A4AE3'
+			link.style.opacity = '1'
+			link.style.padding = '6px 8px'
+			link.style.display = 'inline-flex'
+			link.style.alignItems = 'center'
+
+			// svg outline styling
+			const svg = link.querySelector('svg')
+			if (svg) {
+				svg.setAttribute('width', '20')
+				svg.setAttribute('height', '20')
+				svg.style.width = '20px'
+				svg.style.height = '20px'
+				svg.style.stroke = '#5A4AE3'
+				svg.style.strokeWidth = '1.75'
+				svg.style.fill = 'none'
+				svg.style.vectorEffect = 'non-scaling-stroke'
+				// enforce stroke-only on child paths
+				svg.querySelectorAll('*').forEach((n) => {
+					n.setAttribute('fill', 'none')
+					n.setAttribute('stroke', '#5A4AE3')
+					n.setAttribute('stroke-width', '1.75')
+				})
+			}
+
+			// optional hover behavior to keep consistent outline color
+			link.onmouseenter = () => { link.style.opacity = '0.9' }
+			link.onmouseleave = () => { link.style.opacity = '1' }
+		})
+	}, [msgAnchor])
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -328,6 +406,27 @@ export default function DashboardPage() {
 					</div>
 				))}
 			</div>
+
+			{/* Portal: Dashboard-only Messages icon in header (between Cart and Notifications) */}
+			{msgAnchor &&
+				createPortal(
+					<Link
+						to="/messages"
+						title="Messages"
+						className="nav-icon"
+						style={{
+							display: 'inline-flex',
+							alignItems: 'center',
+							padding: '6px 8px',
+							// color, stroke, fill are unified in the effect above
+							transition: 'opacity .2s, color .2s'
+						}}
+					>
+						<MdOutlineChat size={20} />
+
+					</Link>,
+					msgAnchor
+				)}
 		</div>
 	)
 }
