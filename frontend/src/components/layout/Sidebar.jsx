@@ -1,5 +1,6 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from '../common/Button.jsx'
+import { useAuth } from '../../context/AuthContext.jsx'
 
 const sections = [
 	{ to: '/app', label: 'All Items' },
@@ -15,6 +16,9 @@ const sections = [
 
 export default function Sidebar() {
 	const { pathname } = useLocation()
+	const { logout } = useAuth()
+	const nav = useNavigate()
+
 	return (
 		<aside
 			style={{
@@ -26,6 +30,12 @@ export default function Sidebar() {
 				flexDirection: 'column',
 				gap: 8,
 				boxSizing: 'border-box',
+				margin: 0, // ensure flush
+				position: 'sticky',
+				top: 0,
+				height: '100vh',
+				overflowY: 'auto',
+				flexShrink: 0,
 			}}
 		>
 			<div style={{ fontWeight: 800, fontSize: 22, marginBottom: 12 }}>CampusMart</div>
@@ -48,7 +58,7 @@ export default function Sidebar() {
 				)
 			})}
 
-			<div style={{ marginTop: 'auto' }}>
+			<div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
 				<div
 					className="surface"
 					style={{
@@ -65,6 +75,38 @@ export default function Sidebar() {
 						Upgrade
 					</Button>
 				</div>
+
+				{/* Settings + Sign Out */}
+				<Link
+					to="/app/settings"
+					style={{
+						color: 'var(--sidebar-text)',
+						background: 'transparent',
+						padding: '10px 12px',
+						borderRadius: 10,
+						fontWeight: 600,
+						border: '1px dashed rgba(255,255,255,0.25)'
+					}}
+				>
+					Settings
+				</Link>
+				<button
+					onClick={async () => {
+						try { await logout() } finally { nav('/login', { replace: true }) }
+					}}
+					style={{
+						background: 'rgba(255,255,255,0.12)',
+						color: 'var(--sidebar-text)',
+						padding: '10px 12px',
+						borderRadius: 10,
+						fontWeight: 700,
+						border: 'none',
+						cursor: 'pointer',
+						textAlign: 'left'
+					}}
+				>
+					Sign Out
+				</button>
 			</div>
 		</aside>
 	)

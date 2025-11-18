@@ -3,5 +3,7 @@
 
   .layout-app .app-main {
     /* reserved for page-level overrides in app area */
+    position: relative;
+    z-index: 2; /* allow dashboard content over header */
   }
 }

@@ -17,7 +17,12 @@ export async function login({ email, password }) {
 export async function register({ name, email, password }) {
 	if (USE_MOCKS) {
 		await delay(300)
-		const user = { id: 'u1', email, name: name || email.split('@')[0] }
+		const user = { 
+    	id: 'u1',
+   	 	email, 
+    	name: name || (email ? email.split('@')[0] : 'User')
+	}
+
 		const token = 'mock-token'
 		return { user, token }
 	}

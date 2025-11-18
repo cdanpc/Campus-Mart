@@ -10,8 +10,8 @@ export function AuthProvider({ children }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const { user } = await authService.me()
-				if (user) setUser(user)
+				const { user: u, token } = await authService.me()
+				if (u) setUser({ ...u, token })
 			} catch {
 				// ignore
 			} finally {
@@ -21,17 +21,17 @@ export function AuthProvider({ children }) {
 	}, [])
 
 	const login = async (email, password) => {
-		const { user, token } = await authService.login({ email, password })
-		setUser(user)
-		localStorage.setItem('cm_auth', JSON.stringify({ user, token }))
-		return user
+		const { user: u, token } = await authService.login({ email, password })
+		setUser({ ...u, token }) // ensure name from backend; no email splitting
+		localStorage.setItem('cm_auth', JSON.stringify({ user: { ...u }, token }))
+		return u
 	}
 
 	const register = async (profile) => {
-		const { user, token } = await authService.register(profile)
-		setUser(user)
-		localStorage.setItem('cm_auth', JSON.stringify({ user, token }))
-		return user
+		const { user: u, token } = await authService.register(profile)
+		setUser({ ...u, token })
+		localStorage.setItem('cm_auth', JSON.stringify({ user: { ...u }, token }))
+		return u
 	}
 
 	const logout = async () => {
@@ -43,7 +43,18 @@ export function AuthProvider({ children }) {
 		}
 	}
 
-	const value = useMemo(() => ({ user, loading, isAuthenticated: !!user, login, register, logout }), [user, loading])
+	const value = useMemo(
+		() => ({
+			user,
+			token: user?.token || null,
+			loading,
+			isAuthenticated: !!user,
+			login,
+			register,
+			logout
+		}),
+		[user, loading]
+	)
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
