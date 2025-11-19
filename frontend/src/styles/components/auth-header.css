@@ -1,0 +1,44 @@
+.auth-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%; /* keep header on the left half */
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 24px 24px 0 70px; /* align with left column offset */
+  z-index: 4; /* above background */
+  background: transparent;
+}
+
+.auth-header__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+@media (max-width: 968px) {
+  .auth-header { width: 100%; padding-left: 24px; }
+}
+
+.auth-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px; /* subtle tighter spacing between logo and name */
+  text-decoration: none;
+}
+
+.auth-header__name {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.auth-header__brand--campus { color: #6A4BFF; }
+.auth-header__brand--mart { color: #F7D765; }
+
+/* Static variant (flows with content area) */
+.auth-header--static {
+  position: static;
+  width: auto;
+  padding: 0 0 24px 0; /* space below header */
+}

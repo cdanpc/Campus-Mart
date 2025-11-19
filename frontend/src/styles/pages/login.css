@@ -1,0 +1,273 @@
+.login-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Left Section - Form Content */
+.login-page__left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px 0px 0px 10px;
+  position: relative;
+  z-index: 2;
+  margin-left: 40px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 390px;
+}
+
+.login-card__header {
+  margin-bottom: 170px;
+}
+
+/* Inline Header Branding */
+.system-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.system-logo-link:hover {
+    opacity: 0.85;
+}
+
+.system-logo-link .system-name {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.system-name--campus {
+    color: #6A4BFF;
+}
+
+.system-name--mart {
+    color: #F7D765;
+}
+
+.login-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+}
+
+.login-subtitle {
+  font-size: 16px;
+  color: #86868b;
+  margin: 0 0 32px 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ❌ REMOVED: .form-link-area and .forgot-link CSS blocks */
+
+.form-error {
+  padding: 12px 16px;
+  background: #fee;
+  border-left: 3px solid #dc2626;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 14px;
+  margin: -8px 0 8px 0;
+}
+
+.signup-text-link {
+    margin-top: 4px; /* Space below the Sign In button */
+    text-align: center;
+    font-size: 15px;
+    color: #86868b; /* Gray text for the first part */
+}
+
+.signup-link {
+    font-weight: 600; 
+    color: #6A4BFF; /* Purple color, matching the primary button */
+    text-decoration: none;
+    margin-left: 6px;
+    transition: all 0.2s ease;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.login-form .input-wrapper,
+.login-form .password-input-wrapper {
+  width: 100%;
+}
+
+.login-form .input-field,
+.login-form .password-field {
+  width: 100%;
+  /* 💡 FIX 3: Consistent vertical padding for height. */
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  height: 52px; /* Set explicit height for full consistency */
+  box-sizing: border-box;
+}
+
+/* Input with icon (Email field) */
+.login-form .input-field--with-icon {
+  padding-left: 48px;
+}
+
+/* Password field fixes */
+.login-form .password-field {
+  /* 💡 FIX 4: Correct padding-left to clear the lock icon (16px left + 20px icon + 12px gap = 48px) */
+  padding-left: 48px;
+  /* 💡 FIX 5: Increased padding-right to clear the 'Forgot password?' link and the visibility toggle */
+  padding-right: 160px; /* Adjust as needed based on link text length */
+}
+
+/* Styling and Positioning for the INLINE Forgot Password link */
+.password-link-accessory {
+    position: absolute;
+    /* Position it to the right, between password text and toggle icon */
+    right: 50px; 
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    pointer-events: all; 
+    margin-right: 4px; 
+    z-index: 3; /* Ensure it's above the input field */
+}
+
+.password-accessory-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6A4BFF; /* Purple text color */
+    text-decoration: none;
+    padding: 0 4px; 
+    white-space: nowrap;
+}
+
+.password-accessory-link:hover {
+    text-decoration: underline;
+}
+
+/* Button Overrides */
+.login-form .cm-btn {
+  /* 💡 FIX 6: Consistent padding, height, and box-sizing to match inputs */
+  padding: 14px 16px;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 600; 
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  display: block;
+  line-height: 1;
+  height: 52px;
+  box-sizing: border-box;
+  
+  background: #6A4BFF;
+  color: white;
+  border: none;
+  box-shadow: 0 2px 8px rgba(106, 75, 255, 0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.login-form .cm-btn {
+  background: #6A4BFF;
+  color: white;
+  border: none;
+  box-shadow: 0 2px 8px rgba(106, 75, 255, 0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.login-form .cm-btn:hover:not(:disabled) {
+  background: #5639cc;
+  box-shadow: 0 4px 12px rgba(106, 75, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.login-form .cm-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-form .cm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+
+/* Right Section - Background Image */
+.login-page__right {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url('../../assets/Final\ bg_imgupscaler.ai_General_16K.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.login-illustration {
+  display: none;
+}
+
+
+/* Legacy header styles removed; header styles now centralized in auth-header.css */
+
+/* Responsive */
+@media (max-width: 968px) {
+  .login-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .login-page__right {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    order: -1;
+  }
+
+  .login-page__left {
+    order: 1;
+  }
+
+  .login-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page__left {
+    padding: 24px 16px;
+  }
+
+  .login-card__header {
+    margin-bottom: 32px;
+  }
+
+  .login-title {
+    font-size: 32px;
+  }
+
+  .login-page__right {
+    height: 200px;
+  }
+}
