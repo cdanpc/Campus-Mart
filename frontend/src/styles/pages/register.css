@@ -174,7 +174,7 @@
   height: 100vh; 
   background-image: url('../../assets/Final bg_imgupscaler.ai_General_16K.jpg'); 
   background-size: cover; 
-  background-position: center; 
+  background-position: center;  
   background-repeat: no-repeat; 
   z-index: 1; 
 }
