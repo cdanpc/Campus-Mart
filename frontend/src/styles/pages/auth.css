@@ -1,141 +1,225 @@
-@layer pages {
-  .auth-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* horizontal center only */
-    padding: 32px 20px;
-    padding-top: 80px; /* breathing room (was 60px) */
-    margin-top: 0; /* was 60px */
-    justify-content: flex-start; /* ensure no vertical centering */
-    background: var(--bg-page);
-    position: relative;
-    z-index: 2; /* ensure auth content can overlay header */
-  }
+.register-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  position: relative;
+}
 
-  .auth-card {
-    width: 100%;
-    max-width: 440px;          /* was 400px */
-    background: var(--bg-surface);
-    border: none;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    padding: 40px 38px;        /* balanced horizontal padding (was 40px 34px) */
-    display: flex;
-    flex-direction: column;
-    gap: 24px;                 /* was 22px */
-    /* keep box-shadow / background / radius from earlier */
-  }
+/* Left Section - Form Content */
+.register-page__left {
+  display: flex;
+  align-items: flex-start; 
+  justify-content: flex-start;
+  
+  /* Retain padding, but remove margin-left here */
+  padding: 40px 20px; 
+  position: relative;
+  z-index: 2;
+  /* FIX 1: Remove margin-left from the left container */
+  /* margin-left: 70px; */ 
+}
 
-  .auth-card--compact {
-    padding: 32px 30px; /* balanced horizontal padding */
-    gap: 20px;
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-md);
-    background: var(--bg-surface);
-    border: none;
-    max-width: 420px;          /* was 360px */
-    gap: 20px;                 /* unchanged per spec */
-  }
+.register-card { 
+  width: 100%; 
+  max-width: 480px; 
+  margin-top: 0; 
+  /* FIX 2: Add the margin-left back to the card itself to push it right */
+  margin-left: 50px; 
+}
 
-  .auth-header__title,
-  .auth-title {
-    margin: 0 0 4px;
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -.3px;
-    color: var(--text-primary);
-  }
+/* Header Margin and Logo Styling (MODIFIED) */
+.register-card__header {
+  margin-bottom: 32px; 
+  /* FIX 3: Make the header sticky */
+  position: sticky; 
+  top: 0; 
+  /* Must set a background color so content doesn't show through when scrolling */
+  background-color: #fff; 
+  /* Ensure it is above the form inputs when scrolling */
+  z-index: 10; 
+  /* Ensure it spans the full width of the card */
+  width: 100%; 
+  /* Add top padding back, as the 40px was lost when setting top: 0 */
+  padding-top: 20px; 
+}
 
-  .auth-header__sub,
-  .auth-desc {
-    margin: 0 0 12px;
-    font-size: 13.5px;
-    color: var(--text-secondary);
-  }
-
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;                 /* was 18px but reaffirm (spec) */
-  }
-
-  .auth-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;                  /* was 8px (spec) */
-  }
-
-  .auth-label {
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    letter-spacing: .2px;
-  }
-
-  .auth-input {
-    width: 100%;
-    padding: 9px 12px;
-    font-size: 13.5px;
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
-    transition: border-color .2s ease, box-shadow .2s ease;
-  }
-  .auth-input:focus {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-    border-color: var(--focus-ring);
-  }
-
-  .auth-error {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-danger-500);
-    padding: 8px 10px;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-  }
-
-  .auth-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .auth-links {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12.5px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .auth-links a,
-  .auth-alt a {
-    color: var(--link);
+/* Logo Link Styling */
+.system-logo-link {
+    display: flex; 
+    align-items: center; 
     text-decoration: none;
-    transition: color .2s ease;
-    font-weight: 600;
-  }
-  .auth-links a:hover,
-  .auth-alt a:hover {
-    color: var(--link-hover);
-  }
+    color: #1d1d1f; 
+    transition: opacity 0.2s ease;
+}
 
-  .auth-alt {
-    font-size: 12.5px;
-    text-align: center;
-    margin-top: 4px;
-  }
+.system-logo-link:hover {
+    opacity: 0.8;
+}
 
-  @media (max-width: 520px) {
-    .auth-card { padding: 30px 24px 28px; }
-    .auth-card--compact { padding: 28px 22px; }
-    .auth-page { padding-top: 60px; }
-  }
+.system-logo-link .system-name {
+    font-size: 20px; 
+    font-weight: 700;
+    margin-left: 8px; 
+    line-height: 1;
+}
+
+.register-title { 
+  font-size: 42px; 
+  font-weight: 700; 
+  color: #1d1d1f; 
+  /* FIX: The margin-top was likely overriding the spacing here, setting it to 0 */
+  margin: 0 0 8px; 
+  line-height: 1.1; 
+}
+
+.register-subtitle { 
+  font-size: 16px; 
+  color: #86868b; 
+  margin: 0 0 32px; 
+}
+
+.register-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+}
+
+/* First/Last name split */
+.register-form__split { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 16px; 
+}
+@media (max-width: 640px) { 
+  .register-form__split { 
+    grid-template-columns: 1fr; 
+  } 
+}
+
+/* Input Consistency */
+.register-form .input-wrapper,
+.register-form .password-input-wrapper { 
+  width: 100%; 
+}
+
+.register-form .input-field,
+.register-form .password-field {
+  width: 100%;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 16px;
+  border-radius: 12px;
+  height: 52px;
+  box-sizing: border-box;
+}
+
+.register-form .input-field--with-icon { 
+  padding-left: 48px; 
+}
+.register-form .password-field { 
+  padding-left: 48px; 
+  padding-right: 48px; 
+}
+
+/* Button and other elements styling remains the same */
+.register-form .cm-btn { 
+  padding: 14px 16px; 
+  font-size: 16px; 
+  font-weight: 600; 
+  border-radius: 12px; 
+  text-align: center; 
+  width: 100%; 
+  height: 52px; 
+  line-height: 1; 
+  box-sizing: border-box; 
+  
+  background: #6A4BFF; 
+  color: #fff; 
+  border: none; 
+  box-shadow: 0 2px 8px rgba(106, 75, 255, 0.2); 
+  transition: all 0.2s ease; 
+  cursor: pointer; 
+}
+.register-form .cm-btn:hover:not(:disabled){ 
+  background: #5639cc; 
+  box-shadow: 0 4px 12px rgba(106, 75, 255, 0.3); 
+  transform: translateY(-1px); 
+}
+.register-form .cm-btn:active:not(:disabled){ 
+  transform: translateY(0); 
+}
+.register-form .cm-btn:disabled{ 
+  opacity: 0.6; 
+  cursor: not-allowed; 
+}
+
+/* Error Message */
+.register-error { 
+  padding: 12px 16px; 
+  background: #fee; 
+  border-left: 3px solid #dc2626; 
+  border-radius: 8px; 
+  color: #dc2626; 
+  font-size: 14px; 
+  margin: -8px 0 8px; 
+}
+
+/* Bottom Link */
+.register-bottom-link { 
+  margin-top: 10px; 
+  text-align: center; 
+  font-size: 15px; 
+  color: #86868b; 
+}
+.register-bottom-link a { 
+  font-weight: 600; 
+  color: #6A4BFF; 
+  text-decoration: none; 
+  margin-left: 6px; 
+}
+.register-bottom-link a:hover { text-decoration: underline; }
+
+/* Right Section - Background Image */
+.register-page__right { 
+  position: fixed; 
+  right: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100vh; 
+  background-image: url('../../assets/Final bg_imgupscaler.ai_General_16K.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  z-index: 1; 
+}
+
+/* Responsive */
+@media (max-width: 968px) { 
+  .register-page { 
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto 1fr; 
+  } 
+  .register-page__right { 
+    position: relative; 
+    width: 100%; 
+    height: 300px; 
+    order: -1; 
+  } 
+  .register-page__left { 
+    order: 1; 
+  } 
+  .register-title { 
+    font-size: 36px; 
+  } 
+}
+@media (max-width: 640px) { 
+  .register-page__left { 
+    padding: 24px 16px; 
+  } 
+  .register-title { 
+    font-size: 32px; 
+  } 
+  .register-page__right { 
+    height: 200px; 
+  } 
 }

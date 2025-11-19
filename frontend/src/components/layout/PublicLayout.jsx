@@ -7,7 +7,7 @@ export default function PublicLayout() {
 	const isAuth = pathname === '/login' || pathname === '/register'
 	return (
 		<div className="layout-public" style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-			<PublicHeader />
+			{!isAuth && <PublicHeader />}
 			<main style={{ flex: 1, padding: 16, background: 'var(--bg-page)' }}>
 				{/* Auth pages: no outer surface wrapper */}
 				{isAuth

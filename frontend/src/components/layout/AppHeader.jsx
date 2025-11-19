@@ -3,6 +3,8 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import Button from '../common/Button.jsx'
 import { IconCart, IconBell, IconPlus } from '../common/icons.jsx'
+import '../../styles/components/app-header.css'
+import Logo from '../common/Logo.jsx'
 
 export default function AppHeader() {
 	const { user } = useAuth()
@@ -37,49 +39,22 @@ export default function AppHeader() {
 				>
 					🔍
 				</span>
-				<input
-					placeholder="Search items…"
-					style={{
-						width: '100%',
-						border: '1px solid var(--border-color)',
-						borderRadius: 12,
-						padding: '10px 12px 10px 36px',
-						background: 'var(--bg-subtle)',
-						color: 'var(--text-primary)',
-						fontSize: 14,
-						boxSizing: 'border-box'
-					}}
-				/>
+			</Link>
+			{/* Compact search input with icon */}
+			<div className="app-header__search">
+				<span className="app-header__search-icon" aria-hidden="true">🔍</span>
+				<input className="app-header__search-input" placeholder="Search items…" />
 			</div>
-			<Button
-				as={Link}
-				to="/app/post"
-				leftIcon={<IconPlus />}
-				style={{ color: '#fff' }} // ensure white text
-			>
+			<Button as={Link} to="/app/post" leftIcon={<IconPlus />} className="app-header__post-btn">
 				Post an Item
 			</Button>
-			<Link to="/app/cart" style={{ position: 'relative', padding: '6px 8px', display: 'inline-flex' }} title="Cart">
+			<Link to="/app/cart" className="app-header__icon-link" title="Cart">
 				<IconCart />
 				{totalItems > 0 && (
-					<span
-						style={{
-							position: 'absolute',
-							top: 0,
-							right: 0,
-							transform: 'translate(40%, -40%)',
-							background: 'var(--color-danger-500)',
-							color: 'white',
-							fontSize: 10,
-							borderRadius: 999,
-							padding: '2px 6px',
-						}}
-					>
-						{totalItems}
-					</span>
+					<span className="app-header__cart-badge">{totalItems}</span>
 				)}
 			</Link>
-			<Link to="/notifications" title="Notifications" style={{ padding: '6px 8px', display: 'inline-flex' }}>
+			<Link to="/notifications" title="Notifications" className="app-header__icon-link">
 				<IconBell />
 			</Link>
 			<Link to="/app/profile" title={user?.name || 'Profile'}>
