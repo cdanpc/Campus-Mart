@@ -11,12 +11,33 @@ export default function AppHeader() {
 	const { totalItems } = useCart()
 
 	return (
-		<header className="app-header">
-			<Link to="/" className="app-header__brand" aria-label="Go to landing page">
-				<Logo size={32} />
-				<span className="app-header__brand-name">
-					<span className="app-header__brand--campus">Campus</span>
-					<span className="app-header__brand--mart"> Mart</span>
+		<header
+			style={{
+				background: 'var(--bg-surface)',
+				borderBottom: '1px solid var(--border-color)',
+				padding: '10px 16px',
+				display: 'flex',
+				alignItems: 'center',
+				gap: 12,
+				position: 'relative',
+				zIndex: 0,
+			}}
+		>
+			{/* Compact search input with icon */}
+			<div style={{ position: 'relative', flex: 1, maxWidth: 480, minWidth: 260 }}>
+				<span
+					style={{
+						position: 'absolute',
+						left: 14,
+						top: '50%',
+						transform: 'translateY(-50%)',
+						fontSize: 14,
+						opacity: 0.6,
+						pointerEvents: 'none'
+					}}
+					aria-hidden="true"
+				>
+					🔍
 				</span>
 			</Link>
 			{/* Compact search input with icon */}
@@ -36,9 +57,23 @@ export default function AppHeader() {
 			<Link to="/notifications" title="Notifications" className="app-header__icon-link">
 				<IconBell />
 			</Link>
-			<div title={user?.name || ''} className="app-header__avatar">
-				{user?.name?.[0]?.toUpperCase() || 'U'}
-			</div>
+			<Link to="/app/profile" title={user?.name || 'Profile'}>
+                <div
+                    style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 999,
+                        background: 'var(--color-primary-600)',
+                        color: 'white',
+                        display: 'grid',
+                        placeItems: 'center',
+                        fontWeight: 700,
+                        cursor: 'pointer' 
+                    }}
+                >
+                    {user?.name?.[0]?.toUpperCase() || 'U'}
+                </div>
+            </Link>
 		</header>
 	)
 }

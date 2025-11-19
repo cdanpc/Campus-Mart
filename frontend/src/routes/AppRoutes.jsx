@@ -9,7 +9,9 @@ import RegisterPage from '../pages/auth/RegisterPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage.jsx'
 
 import CartPage from '../pages/app/CartPage.jsx'
+import ProfilePage from '../pages/app/ProfilePage.jsx'
 import DashboardPage from '../pages/app/DashboardPage.jsx'
+import ItemDetailsPage from '../pages/app/ItemDetailsPage.jsx';
 import AppLayout from '../components/layout/AppLayout.jsx'
 import PublicLayout from '../components/layout/PublicLayout.jsx'
 
@@ -36,6 +38,12 @@ export default function AppRoutes() {
 								{/* Default dashboard on /app */}
 								<Route index element={<DashboardPage />} />
 								<Route path="cart" element={<CartPage />} />
+
+								<Route path="items/:itemId" element={<ItemDetailsPage />} />
+
+								{/* 2. Add Profile Page Route */}
+                                <Route path="profile" element={<ProfilePage />} />
+
 							</Route>
 						</Route>
 

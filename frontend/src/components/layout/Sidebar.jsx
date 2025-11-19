@@ -25,6 +25,8 @@ export default function Sidebar() {
 				background: 'var(--sidebar-bg)',
 				color: 'var(--sidebar-text)',
 				width: 240,
+				minWidth:240,
+				maxWidth:240,
 				padding: 16,
 				display: 'flex',
 				flexDirection: 'column',
