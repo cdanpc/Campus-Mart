@@ -22,7 +22,7 @@ export default function AppHeader() {
 			}}
 		>
 			{/* Compact search input with icon */}
-			<div style={{ position: 'relative', width: '65%', maxWidth: 480, minWidth: 260 }}>
+			<div style={{ position: 'relative', flex: 1, maxWidth: 480, minWidth: 260 }}>
 				<span
 					style={{
 						position: 'absolute',
@@ -82,21 +82,23 @@ export default function AppHeader() {
 			<Link to="/notifications" title="Notifications" style={{ padding: '6px 8px', display: 'inline-flex' }}>
 				<IconBell />
 			</Link>
-			<div
-				title={user?.name || ''}
-				style={{
-					width: 32,
-					height: 32,
-					borderRadius: 999,
-					background: 'var(--color-primary-600)',
-					color: 'white',
-					display: 'grid',
-					placeItems: 'center',
-					fontWeight: 700
-				}}
-			>
-				{user?.name?.[0]?.toUpperCase() || 'U'}
-			</div>
+			<Link to="/app/profile" title={user?.name || 'Profile'}>
+                <div
+                    style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 999,
+                        background: 'var(--color-primary-600)',
+                        color: 'white',
+                        display: 'grid',
+                        placeItems: 'center',
+                        fontWeight: 700,
+                        cursor: 'pointer' 
+                    }}
+                >
+                    {user?.name?.[0]?.toUpperCase() || 'U'}
+                </div>
+            </Link>
 		</header>
 	)
 }
