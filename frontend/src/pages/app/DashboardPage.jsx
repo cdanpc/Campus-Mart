@@ -159,7 +159,7 @@ export default function DashboardPage() {
 			const svg = link.querySelector('svg')
 			if (svg) {
 				svg.setAttribute('width', '20')
-				svg.setAttribute('height', '20')
+                svg.setAttribute('height', '20')
 				svg.style.width = '20px'
 				svg.style.height = '20px'
 				svg.style.stroke = '#5A4AE3'
