@@ -1,0 +1,41 @@
+.dashboard-sort-filter {
+	display: flex;
+	gap: 10px;
+	margin-left: auto;
+}
+
+.dashboard-sort {
+	font-size: 11px;
+	color: var(--text-secondary);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.dashboard-sort__select {
+	font-size: 12px;
+	padding: 6px 10px;
+	border-radius: 8px;
+	border: 1px solid var(--border-color);
+	background: var(--bg-surface);
+	color: var(--text-primary);
+}
+
+.dashboard-filter-btn {
+	border: 1px solid var(--border-color);
+	background: var(--bg-subtle);
+	padding: 6px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--text-primary);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.dashboard-filter-btn:hover {
+	background: var(--gray-100);
+}

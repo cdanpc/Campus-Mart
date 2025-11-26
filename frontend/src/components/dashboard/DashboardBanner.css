@@ -1,0 +1,28 @@
+.dashboard-banner {
+	background: linear-gradient(90deg, var(--color-primary-600), var(--color-primary-400));
+	color: var(--text-inverse);
+	border: none;
+	padding: 18px 24px;
+	border-radius: 14px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+}
+
+.dashboard-banner__title {
+	font-weight: 700;
+	font-size: 14px;
+}
+
+.dashboard-banner__subtitle {
+	font-size: 12px;
+	opacity: 0.85;
+}
+
+.dashboard-banner__icon {
+	width: 44px;
+	height: 44px;
+	object-fit: contain;
+	filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}

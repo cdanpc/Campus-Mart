@@ -1,0 +1,35 @@
+.dashboard-tabs {
+	display: flex;
+	gap: 8px;
+}
+
+.dashboard-tab {
+	background: var(--bg-subtle);
+	border: 1px solid var(--border-color);
+	color: var(--gray-600);
+	padding: 8px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.dashboard-tab--active[data-color="purple"] {
+	background: rgba(106, 13, 173, 0.08);
+	border-color: #6A0DAD;
+	color: #6A0DAD;
+}
+
+.dashboard-tab--active[data-color="blue"] {
+	background: rgba(31, 117, 254, 0.08);
+	border-color: #1F75FE;
+	color: #1F75FE;
+}
+
+.dashboard-tab:hover {
+	opacity: 0.85;
+}

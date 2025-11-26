@@ -1,0 +1,46 @@
+.header-icon {
+	position: relative;
+	padding: 6px 8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	color: var(--text-secondary);
+	transition: opacity 0.2s, color 0.2s;
+	text-decoration: none;
+}
+
+.header-icon:hover {
+	opacity: 0.85;
+	color: var(--color-primary-600);
+}
+
+.header-icon__badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(40%, -40%);
+	background: var(--color-danger-500);
+	color: #fff;
+	font-size: 10px;
+	font-weight: 600;
+	border-radius: 999px;
+	padding: 2px 6px;
+	line-height: 1;
+}
+
+/* Dashboard-specific icon styling */
+.header-icon--dashboard svg {
+	width: 20px;
+	height: 20px;
+	stroke: #5A4AE3;
+	stroke-width: 1.75;
+	fill: none;
+	color: #5A4AE3;
+}
+
+.header-icon--dashboard:hover svg {
+	opacity: 0.9;
+}

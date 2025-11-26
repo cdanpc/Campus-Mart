@@ -1,0 +1,19 @@
+.dashboard-messages-icon {
+	display: inline-flex;
+	align-items: center;
+	padding: 6px 8px;
+	color: #5A4AE3;
+	transition: opacity 0.2s;
+}
+
+.dashboard-messages-icon:hover {
+	opacity: 0.85;
+}
+
+.dashboard-messages-icon svg {
+	width: 20px;
+	height: 20px;
+	stroke: #5A4AE3;
+	stroke-width: 1.75;
+	fill: none;
+}
