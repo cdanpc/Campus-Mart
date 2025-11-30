@@ -1,29 +1,42 @@
-import '../../styles/components/input.css'
+import './Input.css';
 
-export default function Input({ 
-  leftIcon, 
-  type = 'text', 
-  placeholder, 
-  value, 
-  onChange, 
+/**
+ * Input Component
+ * @param {Object} props
+ * @param {string} props.label
+ * @param {string} props.error
+ * @param {boolean} props.required
+ * @param {string} props.className
+ */
+export default function Input({
+  label,
+  error,
   required = false,
-  autoComplete,
   className = '',
-  ...props 
+  ...props
 }) {
+  const inputId = props.id || props.name;
+
   return (
-    <div className={`input-wrapper ${className}`}>
-      {leftIcon && <span className="input-icon">{leftIcon}</span>}
+    <div className={`input-group ${className}`}>
+      {label && (
+        <label htmlFor={inputId} className="input-label">
+          {label}
+          {required && <span className="input-required">*</span>}
+        </label>
+      )}
       <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required={required}
-        autoComplete={autoComplete}
-        className={`input-field ${leftIcon ? 'input-field--with-icon' : ''}`}
+        id={inputId}
+        className={`input ${error ? 'input--error' : ''}`}
+        aria-invalid={error ? 'true' : 'false'}
+        aria-describedby={error ? `${inputId}-error` : undefined}
         {...props}
       />
+      {error && (
+        <span id={`${inputId}-error`} className="input-error" role="alert">
+          {error}
+        </span>
+      )}
     </div>
-  )
+  );
 }

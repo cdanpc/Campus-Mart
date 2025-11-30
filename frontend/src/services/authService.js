@@ -1,56 +1,107 @@
-import api, { USE_MOCKS } from './api.js'
+import api from './api';
 
-const delay = (ms) => new Promise((r) => setTimeout(r, ms))
+/**
+ * Authentication Service
+ * Handles all auth-related API calls
+ * DEV MODE: Using mock authentication for development
+ */
 
-export async function login({ email, password }) {
-	if (USE_MOCKS) {
-		await delay(300)
-		if (!email || !password) throw new Error('Email and password are required')
-		const user = { id: 'u1', email, name: email.split('@')[0] }
-		const token = 'mock-token'
-		return { user, token }
-	}
-	const { data } = await api.post('/auth/login', { email, password })
-	return data
-}
+const DEV_MODE = true; // Set to false when backend is ready
 
-export async function register({ name, email, password }) {
-	if (USE_MOCKS) {
-		await delay(300)
-		const user = { 
-    	id: 'u1',
-   	 	email, 
-    	name: name || (email ? email.split('@')[0] : 'User')
-	}
+/**
+ * @param {import('../types').LoginCredentials} credentials
+ * @returns {Promise<import('../types').AuthResponse>}
+ */
+export const login = async (credentials) => {
+  if (DEV_MODE) {
+    // Mock login for development
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API delay
+    
+    const mockUser = {
+      id: 1,
+      email: credentials.email,
+      profile: {
+        id: 1,
+        user_id: 1,
+        first_name: 'John',
+        last_name: 'Doe',
+        phone_number: '09123456789',
+        academic_level: '3rd Year',
+        bio: 'Test user',
+        total_reviews: 0,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }
+    };
+    
+    const mockToken = 'dev-mock-token-' + Date.now();
+    
+    localStorage.setItem('token', mockToken);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    
+    return { token: mockToken, user: mockUser };
+  }
+  
+  const response = await api.post('/auth/login', credentials);
+  if (response.data.token) {
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+  }
+  return response.data;
+};
 
-		const token = 'mock-token'
-		return { user, token }
-	}
-	const { data } = await api.post('/auth/register', { name, email, password })
-	return data
-}
+/**
+ * @param {import('../types').RegisterData} data
+ * @returns {Promise<import('../types').AuthResponse>}
+ */
+export const register = async (data) => {
+  if (DEV_MODE) {
+    // Mock registration for development
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API delay
+    
+    const mockUser = {
+      id: Date.now(),
+      email: data.email,
+      profile: {
+        id: Date.now(),
+        user_id: Date.now(),
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone_number: data.phone_number,
+        academic_level: data.academic_level,
+        bio: '',
+        total_reviews: 0,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }
+    };
+    
+    const mockToken = 'dev-mock-token-' + Date.now();
+    
+    localStorage.setItem('token', mockToken);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    
+    return { token: mockToken, user: mockUser };
+  }
+  
+  const response = await api.post('/auth/register', data);
+  if (response.data.token) {
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+  }
+  return response.data;
+};
 
-export async function me() {
-	if (USE_MOCKS) {
-		await delay(100)
-		try {
-			const saved = JSON.parse(localStorage.getItem('cm_auth') || '{}')
-			if (saved?.user) return saved
-		} catch {
-			// ignore
-		}
-		return { user: null, token: null }
-	}
-	const { data } = await api.get('/auth/me')
-	return data
-}
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+};
 
-export async function logout() {
-	if (USE_MOCKS) {
-		await delay(100)
-		return { success: true }
-	}
-	const { data } = await api.post('/auth/logout')
-	return data
-}
+export const getCurrentUser = () => {
+  const userJson = localStorage.getItem('user');
+  return userJson ? JSON.parse(userJson) : null;
+};
 
+export const isAuthenticated = () => {
+  return !!localStorage.getItem('token');
+};

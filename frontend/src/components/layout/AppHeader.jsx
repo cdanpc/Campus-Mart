@@ -1,80 +1,224 @@
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext.jsx'
-import { useCart } from '../../context/CartContext.jsx'
-import Button from '../common/Button.jsx'
-import { IconCart, IconBell, IconPlus } from '../common/icons.jsx'
-import '../../styles/components/app-header.css'
-import Logo from '../common/Logo.jsx'
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FiSettings, FiLogOut, FiUser, FiBell } from 'react-icons/fi';
+import { useAuth } from '../../context/AuthContext';
+import ListItemPanel from '../common/ListItemPanel';
+import './AppHeader.css';
 
 export default function AppHeader() {
-	const { user } = useAuth()
-	const { totalItems } = useCart()
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const profileMenuRef = useRef(null);
+  const notificationRef = useRef(null);
 
-	return (
-		<header
-			style={{
-				background: 'var(--bg-surface)',
-				borderBottom: '1px solid var(--border-color)',
-				padding: '10px 16px',
-				display: 'flex',
-				alignItems: 'center',
-				gap: 12,
-				position: 'relative',
-				zIndex: 0,
-			}}
-		>
-			{/* Compact search input with icon */}
-			<div style={{ position: 'relative', flex: 1, maxWidth: 480, minWidth: 260 }}>
-				<span
-					style={{
-						position: 'absolute',
-						left: 14,
-						top: '50%',
-						transform: 'translateY(-50%)',
-						fontSize: 14,
-						opacity: 0.6,
-						pointerEvents: 'none'
-					}}
-					aria-hidden="true"
-				>
-					🔍
-				</span>
-			</Link>
-			{/* Compact search input with icon */}
-			<div className="app-header__search">
-				<span className="app-header__search-icon" aria-hidden="true">🔍</span>
-				<input className="app-header__search-input" placeholder="Search items…" />
-			</div>
-			<Button as={Link} to="/app/post" leftIcon={<IconPlus />} className="app-header__post-btn">
-				Post an Item
-			</Button>
-			<Link to="/app/cart" className="app-header__icon-link" title="Cart">
-				<IconCart />
-				{totalItems > 0 && (
-					<span className="app-header__cart-badge">{totalItems}</span>
-				)}
-			</Link>
-			<Link to="/notifications" title="Notifications" className="app-header__icon-link">
-				<IconBell />
-			</Link>
-			<Link to="/app/profile" title={user?.name || 'Profile'}>
-                <div
-                    style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 999,
-                        background: 'var(--color-primary-600)',
-                        color: 'white',
-                        display: 'grid',
-                        placeItems: 'center',
-                        fontWeight: 700,
-                        cursor: 'pointer' 
-                    }}
-                >
-                    {user?.name?.[0]?.toUpperCase() || 'U'}
-                </div>
+  // Mock notifications data
+  const notifications = [
+    {
+      id: 1,
+      type: 'message',
+      title: 'New Message',
+      message: 'Anita Max Win sent you a message about Rolex Datejust',
+      time: '5 min ago',
+      read: false
+    },
+    {
+      id: 2,
+      type: 'order',
+      title: 'Order Update',
+      message: 'Your order #1234 has been confirmed',
+      time: '1 hour ago',
+      read: false
+    },
+    {
+      id: 3,
+      type: 'promotion',
+      title: 'New Feature',
+      message: 'Check out our new rating system!',
+      time: '2 hours ago',
+      read: true
+    }
+  ];
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setIsProfileMenuOpen(false);
+      }
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setIsNotificationOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleMarkAsRead = (notificationId) => {
+    console.log('Marking notification as read:', notificationId);
+    // TODO: Implement mark as read API call
+  };
+
+  const handleClearAll = () => {
+    console.log('Clearing all notifications');
+    setIsNotificationOpen(false);
+    // TODO: Implement clear all API call
+  };
+
+  const handleLogout = () => {
+    if (confirm('Are you sure you want to logout?')) {
+      logout();
+      navigate('/login');
+    }
+    setIsProfileMenuOpen(false);
+  };
+
+  return (
+    <>
+      <header className="app-header">
+        <div className="container">
+          <div className="app-header__content">
+            <Link to="/dashboard" className="app-header__brand">
+              <span className="app-header__logo">📚</span>
+              <span className="app-header__title">
+                Campus <span className="app-header__title--highlight">Mart</span>
+              </span>
             </Link>
-		</header>
-	)
-}
 
+            <div className="app-header__search">
+              <input 
+                type="text" 
+                placeholder="Search Item" 
+                className="app-header__search-input"
+              />
+              <span className="app-header__search-icon">🔍</span>
+            </div>
+
+            <div className="app-header__actions">
+              <button 
+                className="app-header__btn app-header__btn--primary"
+                onClick={() => setIsPanelOpen(true)}
+              >
+                + List Item
+              </button>
+              <Link to="/messages" className="app-header__btn app-header__btn--icon">
+                💬
+              </Link>
+              
+              <div className="app-header__notification" ref={notificationRef}>
+                <button 
+                  className="app-header__btn app-header__btn--icon"
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                >
+                  <FiBell />
+                  {unreadCount > 0 && (
+                    <span className="notification-badge">{unreadCount}</span>
+                  )}
+                </button>
+
+                {isNotificationOpen && (
+                  <div className="notification-dropdown">
+                    <div className="notification-dropdown__header">
+                      <h3>Notifications</h3>
+                      <button 
+                        className="clear-all-btn"
+                        onClick={handleClearAll}
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                    
+                    <div className="notification-dropdown__list">
+                      {notifications.length === 0 ? (
+                        <div className="notification-empty">
+                          <FiBell className="notification-empty__icon" />
+                          <p>No notifications</p>
+                        </div>
+                      ) : (
+                        notifications.map(notification => (
+                          <div 
+                            key={notification.id}
+                            className={`notification-item ${!notification.read ? 'notification-item--unread' : ''}`}
+                            onClick={() => handleMarkAsRead(notification.id)}
+                          >
+                            <div className="notification-item__content">
+                              <h4 className="notification-item__title">{notification.title}</h4>
+                              <p className="notification-item__message">{notification.message}</p>
+                              <span className="notification-item__time">{notification.time}</span>
+                            </div>
+                            {!notification.read && (
+                              <div className="notification-item__dot"></div>
+                            )}
+                          </div>
+                        ))
+                      )}
+                    </div>
+
+                    <div className="notification-dropdown__footer">
+                      <Link 
+                        to="/notifications" 
+                        className="view-all-link"
+                        onClick={() => setIsNotificationOpen(false)}
+                      >
+                        View All Notifications
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="app-header__profile-menu" ref={profileMenuRef}>
+                <button 
+                  className="app-header__btn app-header__btn--icon"
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                >
+                  👤
+                </button>
+                
+                {isProfileMenuOpen && (
+                  <div className="profile-dropdown">
+                    <Link 
+                      to="/profile" 
+                      className="profile-dropdown__item"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                    >
+                      <FiUser className="profile-dropdown__icon" />
+                      My Profile
+                    </Link>
+                    <Link 
+                      to="/settings" 
+                      className="profile-dropdown__item"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                    >
+                      <FiSettings className="profile-dropdown__icon" />
+                      Settings
+                    </Link>
+                    <div className="profile-dropdown__divider"></div>
+                    <button 
+                      className="profile-dropdown__item profile-dropdown__item--danger"
+                      onClick={handleLogout}
+                    >
+                      <FiLogOut className="profile-dropdown__icon" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <ListItemPanel 
+        isOpen={isPanelOpen} 
+        onClose={() => setIsPanelOpen(false)} 
+      />
+    </>
+  );
+}
