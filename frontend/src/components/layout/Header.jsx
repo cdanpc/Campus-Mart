@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../common/Logo';
 import './Header.css';
 
 export default function Header() {
@@ -18,7 +19,9 @@ export default function Header() {
       <div className="container">
         <div className="header__content">
           <Link to="/" className="header__brand">
-            <span className="header__logo">📚</span>
+            <div className="header__logo">
+              <Logo size={28} />
+            </div>
             <span className="header__title">Campus Mart</span>
           </Link>
           <nav className="header__nav">

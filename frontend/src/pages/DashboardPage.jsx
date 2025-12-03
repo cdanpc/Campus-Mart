@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { FiUser, FiHeart } from 'react-icons/fi';
+// Remove this if AppHeader is in a layout component:
+// import AppHeader from '../components/layout/AppHeader';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
@@ -101,7 +104,8 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="dashboard">
+    <>
+      {/* Remove <AppHeader /> if it's already in your layout */}
       <div className="dashboard__header">
         <div className="container">
           <div className="dashboard__welcome">
@@ -196,11 +200,11 @@ export default function DashboardPage() {
                   </div>
                   <div className="product-card__footer">
                     <div className="seller">
-                      <span className="seller-icon">👤</span>
+                      <FiUser className="seller-icon" />
                       <span className="seller-name">{product.seller.name}</span>
                     </div>
                     <div className="likes">
-                      <span className="like-icon">❤️</span>
+                      <FiHeart className="like-icon" />
                       <span className="like-count">{product.like_count}</span>
                     </div>
                   </div>
@@ -210,6 +214,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
