@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiSettings, FiLogOut, FiUser, FiBell } from 'react-icons/fi';
+import { FiSettings, FiLogOut, FiUser, FiBell, FiMessageSquare, FiSearch } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import ListItemPanel from '../common/ListItemPanel';
+import Logo from '../common/Logo';
 import './AppHeader.css';
 
 export default function AppHeader() {
@@ -85,19 +86,21 @@ export default function AppHeader() {
         <div className="container">
           <div className="app-header__content">
             <Link to="/dashboard" className="app-header__brand">
-              <span className="app-header__logo">📚</span>
+              <div className="app-header__logo">
+                <Logo size={32} />
+              </div>
               <span className="app-header__title">
                 Campus <span className="app-header__title--highlight">Mart</span>
               </span>
             </Link>
 
             <div className="app-header__search">
+              <FiSearch className="app-header__search-icon" />
               <input 
                 type="text" 
-                placeholder="Search Item" 
+                placeholder="Search items, sellers..." 
                 className="app-header__search-input"
               />
-              <span className="app-header__search-icon">🔍</span>
             </div>
 
             <div className="app-header__actions">
@@ -108,7 +111,7 @@ export default function AppHeader() {
                 + List Item
               </button>
               <Link to="/messages" className="app-header__btn app-header__btn--icon">
-                💬
+                <FiMessageSquare />
               </Link>
               
               <div className="app-header__notification" ref={notificationRef}>
@@ -178,7 +181,7 @@ export default function AppHeader() {
                   className="app-header__btn app-header__btn--icon"
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                 >
-                  👤
+                  <FiUser />
                 </button>
                 
                 {isProfileMenuOpen && (

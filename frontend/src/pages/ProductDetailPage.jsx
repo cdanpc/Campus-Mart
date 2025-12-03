@@ -210,52 +210,50 @@ export default function ProductDetailPage() {
           <div className="product-detail__sidebar">
             
             {/* Product Action Card */}
-            <div className="product-card-sticky">
-              <div className="product-action">
-                <h1 className="product-action__name">{product.name}</h1>
-                
-                <div className="product-action__header">
-                  <p className="product-action__price">₱{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                  <span className="product-action__category">{product.category.name}</span>
-                </div>
+            <div className="product-action">
+              <h1 className="product-action__name">{product.name}</h1>
+              
+              <div className="product-action__header">
+                <p className="product-action__price">₱{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                <span className="product-action__category">{product.category.name}</span>
+              </div>
 
-                <div className="product-action__buttons">
-                  <button 
-                    className="btn btn--primary"
-                    onClick={() => setIsPlaceOrderOpen(true)}
-                  >
-                    <FiPackage className="btn__icon" />
-                    Buy Now
-                  </button>
-                  <button 
-                    className="btn btn--secondary"
-                    onClick={() => setIsContactModalOpen(true)}
-                  >
-                    <FiMessageSquare className="btn__icon" />
-                    Contact Seller
-                  </button>
-                  <button 
-                    className="btn btn--accent"
-                    onClick={() => setIsTradeModalOpen(true)}
-                  >
-                    <FiRefreshCw className="btn__icon" />
-                    Make a Trade Offer
-                  </button>
-                </div>
+              <div className="product-action__buttons">
+                <button 
+                  className="btn btn--primary"
+                  onClick={() => setIsPlaceOrderOpen(true)}
+                >
+                  <FiPackage className="btn__icon" />
+                  Buy Now
+                </button>
+                <button 
+                  className="btn btn--secondary"
+                  onClick={() => setIsContactModalOpen(true)}
+                >
+                  <FiMessageSquare className="btn__icon" />
+                  Contact Seller
+                </button>
+                <button 
+                  className="btn btn--accent"
+                  onClick={() => setIsTradeModalOpen(true)}
+                >
+                  <FiRefreshCw className="btn__icon" />
+                  Make a Trade Offer
+                </button>
+              </div>
 
-                <div className="product-action__stats">
-                  <div className="stat">
-                    <FiEye className="stat__icon" />
-                    <span>{product.view_count} Views</span>
-                  </div>
-                  <button 
-                    className={`stat stat--like ${isLiked ? 'stat--liked' : ''}`}
-                    onClick={() => setIsLiked(!isLiked)}
-                  >
-                    <FiHeart className={`stat__icon ${isLiked ? 'stat__icon--filled' : ''}`} />
-                    <span>{isLiked ? product.like_count + 1 : product.like_count} Likes</span>
-                  </button>
+              <div className="product-action__stats">
+                <div className="stat">
+                  <FiEye className="stat__icon" />
+                  <span>{product.view_count} Views</span>
                 </div>
+                <button 
+                  className={`stat stat--like ${isLiked ? 'stat--liked' : ''}`}
+                  onClick={() => setIsLiked(!isLiked)}
+                >
+                  <FiHeart className={`stat__icon ${isLiked ? 'stat__icon--filled' : ''}`} />
+                  <span>{isLiked ? product.like_count + 1 : product.like_count} Likes</span>
+                </button>
               </div>
             </div>
 

@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../common/Logo';
 import './Header.css';
 
 export default function Header() {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isRegisterPage = location.pathname === '/register';
   const isLandingPage = location.pathname === '/';
 
   const scrollToSection = (sectionId) => {
@@ -14,11 +15,13 @@ export default function Header() {
   };
 
   return (
-    <header className={`header ${isAuthPage ? 'header--transparent' : ''}`}>
+    <header className={`header ${isRegisterPage ? 'header--transparent' : ''}`}>
       <div className="container">
         <div className="header__content">
           <Link to="/" className="header__brand">
-            <span className="header__logo">📚</span>
+            <div className="header__logo">
+              <Logo size={28} />
+            </div>
             <span className="header__title">Campus Mart</span>
           </Link>
           <nav className="header__nav">

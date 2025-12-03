@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
+import ContactInfo from '../components/common/ContactInfo';
 import './LandingPage.css';
 
 export default function LandingPage() {
@@ -116,27 +117,21 @@ export default function LandingPage() {
             <h2>Get In Touch</h2>
             <p>Have questions? We'd love to hear from you.</p>
             <div className="contact__info">
-              <div className="contact__item">
-                <div className="contact__icon">📧</div>
-                <div>
-                  <h4>Email</h4>
-                  <p>support@campusmart.com</p>
-                </div>
-              </div>
-              <div className="contact__item">
-                <div className="contact__icon">📱</div>
-                <div>
-                  <h4>Phone</h4>
-                  <p>+63 912 345 6789</p>
-                </div>
-              </div>
-              <div className="contact__item">
-                <div className="contact__icon">📍</div>
-                <div>
-                  <h4>Location</h4>
-                  <p>Campus Center, Main Building</p>
-                </div>
-              </div>
+              <ContactInfo 
+                icon="email"
+                title="Email"
+                description="support@campusmart.com"
+              />
+              <ContactInfo 
+                icon="phone"
+                title="Phone"
+                description="+63 912 345 6789"
+              />
+              <ContactInfo 
+                icon="location"
+                title="Location"
+                description="Campus Center, Main Building"
+              />
             </div>
             <Link to="/register">
               <Button variant="accent" size="large">
