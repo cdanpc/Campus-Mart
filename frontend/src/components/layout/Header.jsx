@@ -3,7 +3,7 @@ import './Header.css';
 
 export default function Header() {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isRegisterPage = location.pathname === '/register';
   const isLandingPage = location.pathname === '/';
 
   const scrollToSection = (sectionId) => {
@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header className={`header ${isAuthPage ? 'header--transparent' : ''}`}>
+    <header className={`header ${isRegisterPage ? 'header--transparent' : ''}`}>
       <div className="container">
         <div className="header__content">
           <Link to="/" className="header__brand">
